@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? (process.env.NODE_ENV === "production" ? "/MyPortFolio" : "");
+const asset = (path: string) => `${basePath}/${path.replace(/^\/+/, "")}`;
 
 export const metadata: Metadata = {
   title: "Prajwal L Chawda | Cybersecurity Researcher & AI Engineer",
@@ -13,8 +14,8 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: `${basePath}/favicon.jpg`,
-    shortcut: `${basePath}/favicon.jpg`,
+    icon: asset("favicon.jpg"),
+    shortcut: asset("favicon.jpg"),
   },
 };
 

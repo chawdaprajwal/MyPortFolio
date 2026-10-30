@@ -30,7 +30,8 @@ const nav = [
   { label: "Education", href: "#education", icon: GraduationCap },
 ];
 const email = process.env.NEXT_PUBLIC_EMAIL ?? "hello@example.com";
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? (process.env.NODE_ENV === "production" ? "/MyPortFolio" : "");
+const asset = (path: string) => `${basePath}/${path.replace(/^\/+/, "")}`;
 const github = process.env.NEXT_PUBLIC_GITHUB_URL ?? "https://github.com/brandy-build?tab=repositories";
 const linkedin = process.env.NEXT_PUBLIC_LINKEDIN_URL ?? "https://www.linkedin.com/";
 const twitter = "https://x.com/ChawdaPraj39877";
@@ -165,12 +166,12 @@ export default function Home() {
               <a href={github} target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={14} /></a>
               <a href={linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={14} /></a>
               <a href={twitter} target="_blank" rel="noreferrer" aria-label="X / Twitter"><XBrandIcon /></a>
-              <a href={`${basePath}/resume.pdf`} download aria-label="Download CV">CV</a>
+              <a href={asset("resume.pdf")} download aria-label="Download CV">CV</a>
             </div>
             <p className="lede">I&apos;m a Computer Science graduate focused on cybersecurity, security research, and AI-driven engineering. I build tools, investigate vulnerabilities, explore reverse engineering, and experiment with intelligent systems that solve real-world technical problems.</p>
           </div>
           <aside className="hero-aside">
-            <Image className="profile-image" src={`${basePath}/profile.jpg`} alt="Portrait of Prajwal L Chawda" width={132} height={132} priority />
+            <Image className="profile-image" src={asset("profile.jpg")} alt="Portrait of Prajwal L Chawda" width={132} height={132} priority />
           </aside>
         </section>
 
@@ -186,10 +187,10 @@ export default function Home() {
           <SectionHeading eyebrow="Work Experience" title="Learning through practical security work." />
           <div className="experience-list">
             {[
-              { mark: "F", logo: "/flagzonfire-logo.jpeg", company: "Flagz0nFire", role: "Reverse Engineering Challenge Creator", date: "Current", location: "Flagz0nFire Organization", description: "Create and contribute to advanced reverse-engineering challenges for cybersecurity learners and CTF participants.", tags: ["Reverse Engineering", "CTF", "Challenge Creation"] },
-              { mark: "AC", logo: "/agamya-cyber-tech.webp", company: "Agamya Cyber Tech", role: "Ethical Hacking Trainer — 25-Day Offline Workshop", date: "Aug 11 – 26, 2026", location: "SSIT Tumakuru, Karnataka", description: "Delivered hands-on ethical hacking training covering networking, web application security, reconnaissance, OWASP Top 10, vulnerability assessment, and security tooling.", tags: ["Ethical Hacking", "OWASP", "VAPT", "Training"] },
-              { mark: "AC", logo: "/agamya-cyber-tech.webp", company: "Agamya Cyber Tech", role: "Junior Security Analyst", date: "Nov 2025", location: "Bangalore", description: "Conducted web application vulnerability assessments and bug hunting across multiple targets, helping identify and remediate critical security flaws.", tags: ["Web Security", "Bug Hunting", "Vulnerability Assessment"] },
-              { mark: "H", logo: "/hacktify-cybersecurity.png", company: "Hackify", role: "Cybersecurity and Penetration Testing Intern", date: "Feb – Mar, 2025", location: "Bengaluru", description: "Executed structured ethical-hacking exercises covering OWASP Top 10, vulnerability assessment, penetration testing, and security report writing.", tags: ["Penetration Testing", "OWASP", "Security Reports"] },
+              { mark: "F", logo: asset("flagzonfire-logo.jpeg"), company: "Flagz0nFire", role: "Reverse Engineering Challenge Creator", date: "Current", location: "Flagz0nFire Organization", description: "Create and contribute to advanced reverse-engineering challenges for cybersecurity learners and CTF participants.", tags: ["Reverse Engineering", "CTF", "Challenge Creation"] },
+              { mark: "AC", logo: asset("agamya-cyber-tech.webp"), company: "Agamya Cyber Tech", role: "Ethical Hacking Trainer — 25-Day Offline Workshop", date: "Aug 11 – 26, 2026", location: "SSIT Tumakuru, Karnataka", description: "Delivered hands-on ethical hacking training covering networking, web application security, reconnaissance, OWASP Top 10, vulnerability assessment, and security tooling.", tags: ["Ethical Hacking", "OWASP", "VAPT", "Training"] },
+              { mark: "AC", logo: asset("agamya-cyber-tech.webp"), company: "Agamya Cyber Tech", role: "Junior Security Analyst", date: "Nov 2025", location: "Bangalore", description: "Conducted web application vulnerability assessments and bug hunting across multiple targets, helping identify and remediate critical security flaws.", tags: ["Web Security", "Bug Hunting", "Vulnerability Assessment"] },
+              { mark: "H", logo: asset("hacktify-cybersecurity.png"), company: "Hackify", role: "Cybersecurity and Penetration Testing Intern", date: "Feb – Mar, 2025", location: "Bengaluru", description: "Executed structured ethical-hacking exercises covering OWASP Top 10, vulnerability assessment, penetration testing, and security report writing.", tags: ["Penetration Testing", "OWASP", "Security Reports"] },
             ].map((experience) => <article className="experience-item" key={`${experience.company}-${experience.role}`}><div className="experience-mark"><Image className="experience-logo" src={experience.logo} alt={`${experience.company} logo`} width={56} height={56} /></div><div><div className="card-heading"><h3>{experience.company}</h3><span className="date">{experience.date}</span></div><strong className="bold-role">{experience.role}</strong><p className="muted">{experience.location}</p><p>{experience.description}</p><div className="tag-cloud compact">{experience.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div></div></article>)}
           </div>
         </section>
